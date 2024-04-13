@@ -1,11 +1,8 @@
 import React from 'react';
+import InputForm from './inputform';
 
 const page = () => {
-  return (
-    <div>
-      <h1>ADD STAFF</h1>
-    </div>
-  );
+  return <InputForm />;
 };
 
 export default page;

@@ -19,6 +19,6 @@ const config: Config = {
     },
   },
   darkMode: 'class',
-  plugins: [nextui()],
+  plugins: [nextui(), require('@shrutibalasa/tailwind-grid-auto-fit')],
 };
 export default config;

@@ -1,11 +1,8 @@
 import React from 'react';
+import InputShift from './InputShift';
 
 const page = () => {
-  return (
-    <div>
-      <h1>ADD SHIFT</h1>
-    </div>
-  );
+  return <InputShift />;
 };
 
 export default page;

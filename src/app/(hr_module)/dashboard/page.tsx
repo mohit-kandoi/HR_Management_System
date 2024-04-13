@@ -1,84 +1,106 @@
 // pages/index.tsx
 'use client';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import DropdownComponent from './dropdown';
 import CustomPieChart from './piechart';
 import { Card, CardBody } from '@nextui-org/react';
+import UserTable from './usertable';
 
 const Dashboard: React.FC = () => {
   const onDuty = 50;
   const onLeave = 50;
+  const applications = 50;
+  const totalApplications = 50;
+
+  const [rows, setRows] = useState([]);
+
+  async function fetchProducts() {
+    let response: any = await fetch('https://dummyjson.com/products');
+    response = await response.json();
+    const products = response.products.map((product: any) => {
+      // console.log(product);
+      const newProduct = {
+        key: product.id,
+        name: product.brand,
+        department: product.category,
+        status: product.price,
+      };
+      return newProduct;
+    });
+    setRows(products);
+    // console.log(response);
+  }
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
 
   return (
-    <div className="w-full h-screen flex flex-col">
-      {/* First row */}
-      <div className="w-full h-1/6 flex  m-2 bg-gray-100">
-        <div className="w-1/4 m-1 ">
-          <Card className="bg-white h-full">
-            <CardBody>
-              <p className=" text-center bg-gray-200 rounded-md p-1 ml-4 mr-4">
-                Staff on Duty
-              </p>
-              <p className=" text-center">{onDuty}</p>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="w-1/4 m-1">
-          <Card className="bg-white h-full">
-            <CardBody>
-              <p className="text-center bg-gray-200 rounded-md p-1 ml-4 mr-4">
-                Staff on Leave
-              </p>
-              <p className="text-center">50</p>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="w-1/4 m-1">
-          <Card className="bg-white h-full">
-            <CardBody>
-              <p className=" text-center bg-gray-200 rounded-md p-1 ml-4 mr-4">
-                Applications
-              </p>
-              <p className=" text-center"></p>
-            </CardBody>
-          </Card>
-        </div>
-        <div className="w-1/4 m-1">
-          <Card className="bg-white h-full">
-            <CardBody>
-              <p className=" text-center bg-gray-200 rounded-md p-1 ml-4 mr-4">
-                Total Applications
-              </p>
-            </CardBody>
-          </Card>
-        </div>
+    <div className="w-full h-screen grid grid-cols-1 sm:grid-cols-3 md:grid-cols-6 lg:grid-cols-12 gap-2">
+      <div className="col-span-3 ">
+        <Card className=" shadow-small">
+          <CardBody>
+            <p className=" text-center">Staff on Duty</p>
+            <p className=" text-center">{onDuty}</p>
+          </CardBody>
+        </Card>
       </div>
-
+      <div className="col-span-3 ">
+        <Card className="shadow-small">
+          <CardBody>
+            <p className="text-center">Staff on Leave</p>
+            <p className="text-center">{onLeave}</p>
+          </CardBody>
+        </Card>
+      </div>
+      <div className="col-span-3 ">
+        <Card className=" shadow-small">
+          <CardBody>
+            <p className=" text-center ">Applications</p>
+            <p className=" text-center">{applications}</p>
+          </CardBody>
+        </Card>
+      </div>
+      <div className="col-span-3 ">
+        <Card className="shadow-small">
+          <CardBody>
+            <p className=" text-center">Total Applications</p>
+            <p className=" text-center">{totalApplications}</p>
+          </CardBody>
+        </Card>
+      </div>
       {/* Second row */}
-      <div className="w-full h-3/6 flex  m-2">
-        <div className="w-3/5 bg-gray-100 m-1">
-          <div className="flex-col">
-            <div className="flex justify-end">
-              <DropdownComponent />
+      <div className="col-span-8 ">
+        <Card className="shadow-small">
+          <CardBody>
+            <div className="flex-col">
+              <div className="flex justify-end">
+                <DropdownComponent />
+              </div>
+              <div>
+                <CustomPieChart value1={125} value2={5} />
+              </div>
             </div>
-            <div>
-              <CustomPieChart value1={125} value2={5} />
-            </div>
-          </div>
-        </div>
-        <div className="w-2/5 m-1">
-          <Card className="bg-white h-full">
-            <CardBody>
-              <p className="text-center bg-gray-200 rounded-md p-1 ml-4 mr-4">
-                NOTICES
-              </p>
-            </CardBody>
-          </Card>
-        </div>
+          </CardBody>
+        </Card>
+      </div>
+      <div className="col-span-4">
+        <Card className="shadow-small h-full">
+          <CardBody>
+            <p className="text-center mb-2">NOTICES</p>
+            <ul className="list-disc">
+              <li>CoffeeAliquam tincidunt mauris eu risus.</li>
+              <li>Aliquam tincidunt mauris eu risus.</li>
+              <li>Aliquam tincidunt mauris eu risus.</li>
+            </ul>
+          </CardBody>
+        </Card>
       </div>
 
       {/* Third row */}
-      <div className="w-full h-2/6 bg-gray-100  m-2 text-center">Table</div>
+      <div className="col-span-full ">
+        <UserTable rows={rows} />
+      </div>
     </div>
   );
 };
