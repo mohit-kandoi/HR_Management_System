@@ -29,7 +29,7 @@ export default function DropdownComponent() {
         disallowEmptySelection
         selectionMode="multiple"
         selectedKeys={selectedKeys}
-        onSelectionChange={setSelectedKeys}
+        onSelectionChange={setSelectedKeys as any}
       >
         <DropdownItem key="text">Text</DropdownItem>
         <DropdownItem key="number">Number</DropdownItem>
