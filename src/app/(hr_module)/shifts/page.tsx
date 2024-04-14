@@ -16,7 +16,7 @@ const Shifts = () => {
         <h1 className="text-center font-semibold">SHIFTS</h1>
         <div className="flex justify-end mb-2">
           <Button size="md" className="bg-gray-200" onClick={addShift}>
-            Add Staff
+            Add Shift
           </Button>
         </div>
         <App />
